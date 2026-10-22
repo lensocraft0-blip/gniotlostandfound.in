@@ -1,0 +1,6 @@
+{
+  "name": "GNIOT Lost & Found AI",
+  "description": "Premium 3D campus lost and found platform for GNIOT with AI matching, visual search, claim verification, and offline resilience.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

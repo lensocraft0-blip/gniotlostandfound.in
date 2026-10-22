@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ice-silver: #E8EDF2;
+  --color-deep-aubergine: #30152F;
+  --color-marigold-gold: #D9A441;
+  --color-dark-aubergine: #1D1020;
+  --color-muted-silver: #BFC8D2;
+  --color-aubergine-surface: rgba(48, 21, 47, 0.65);
+  --color-glass-border: rgba(232, 237, 242, 0.12);
+  --color-gold-border: rgba(217, 164, 65, 0.35);
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #1D1020;
+  color: #E8EDF2;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-display);
+}
+
+/* Custom Glassmorphism styles */
+.glass-card {
+  background: rgba(48, 21, 47, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(232, 237, 242, 0.12);
+}
+
+.glass-card-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(48, 21, 47, 0.75);
+  border-color: rgba(217, 164, 65, 0.35);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.glass-gold-glow {
+  box-shadow: 0 0 25px rgba(217, 164, 65, 0.2);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1D1020;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(232, 237, 242, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D9A441;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
