@@ -4,6 +4,7 @@ import { ItemReport } from '../types/database';
 import { DataService } from '../services/dataService';
 import { analyzeImageAttributes, VisualSearchExtraction } from '../lib/gemini';
 import { ItemCard } from '../components/items/ItemCard';
+import campusItemsCollection from '../assets/images/campus_items_collection_1792676762341.jpg';
 import { Upload, Camera, Search, Sparkles, AlertCircle, Info, RefreshCw } from 'lucide-react';
 
 interface VisualSearchPageProps {
@@ -111,7 +112,7 @@ export const VisualSearchPage: React.FC<VisualSearchPageProps> = ({ onNavigate }
                 <button
                   type="button"
                   onClick={() => {
-                    setSelectedImage('/src/assets/images/campus_items_collection_1792676762341.jpg');
+                    setSelectedImage(campusItemsCollection);
                     setExtractedData(null);
                     setMatchedItems([]);
                   }}

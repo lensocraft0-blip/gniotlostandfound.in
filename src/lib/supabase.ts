@@ -30,10 +30,19 @@ export interface SupabaseConfigStatus {
 }
 
 export function getSupabaseConfigStatus(): SupabaseConfigStatus {
+  let projectHost = 'not-configured';
+  if (supabaseUrl) {
+    try {
+      projectHost = new URL(supabaseUrl).host;
+    } catch {
+      projectHost = 'invalid-url-format';
+    }
+  }
+
   return {
     configured: isSupabaseConfigured,
     urlPresent: Boolean(supabaseUrl),
     keyPresent: Boolean(supabaseAnonKey),
-    projectHost: supabaseUrl ? new URL(supabaseUrl).host : 'not-configured',
+    projectHost,
   };
 }

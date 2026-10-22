@@ -231,11 +231,11 @@ export const CampusHeroScene: React.FC = () => {
       window.addEventListener('resize', handleResize);
 
       // --- ANIMATION LOOP ---
-      let clock = new THREE.Clock();
+      const startTime = performance.now();
 
-      const animate = () => {
+      const animate = (currentTime: number = performance.now()) => {
         animationFrameId = requestAnimationFrame(animate);
-        const elapsed = clock.getElapsedTime();
+        const elapsed = (currentTime - startTime) * 0.001;
 
         // Smooth mouse damping
         targetX += (mouseX - targetX) * 0.05;
@@ -266,6 +266,9 @@ export const CampusHeroScene: React.FC = () => {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('resize', handleResize);
         cancelAnimationFrame(animationFrameId);
+        if (renderer.domElement && container.contains(renderer.domElement)) {
+          container.removeChild(renderer.domElement);
+        }
         renderer.dispose();
       };
     } catch (err) {

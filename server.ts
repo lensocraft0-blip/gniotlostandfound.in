@@ -1,4 +1,5 @@
 import express from 'express';
+import http from 'http';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -118,10 +119,20 @@ Respond ONLY with raw valid JSON, no markdown formatting.`;
 // Vite middleware in dev or static files in production
 async function startServer() {
   const isProd = process.env.NODE_ENV === 'production';
+  const httpServer = http.createServer(app);
 
   if (!isProd) {
+    // In hosted cloud preview environments (AI Studio iframe), WebSocket connections cannot connect to the container directly.
+    // Explicitly disable HMR if DISABLE_HMR is set or running on hosted preview domain to avoid console WebSocket errors.
+    const isHmrDisabled =
+      process.env.DISABLE_HMR === 'true' ||
+      Boolean(process.env.APP_URL && !process.env.APP_URL.includes('localhost'));
+
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: isHmrDisabled ? false : { server: httpServer },
+      },
       appType: 'spa',
     });
     app.use(vite.middlewares);
@@ -133,7 +144,7 @@ async function startServer() {
     });
   }
 
-  app.listen(port, '0.0.0.0', () => {
+  httpServer.listen(port, '0.0.0.0', () => {
     console.log(`GNIOT Lost & Found server listening on http://0.0.0.0:${port}`);
   });
 }
